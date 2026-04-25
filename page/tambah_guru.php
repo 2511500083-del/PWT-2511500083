@@ -32,7 +32,7 @@ if(isset($_POST['tambah'])){
     $alamat = $_POST['alamat'];
 
     $insert = mysqli_query($koneksi, "INSERT INTO guru values ('$kd_guru','$id_user','$nm_guru','$jenkel','$pend_terakhir','$hp','$alamat')");
-
+    $insertuser = mysqli_query($koneksi, "INSERT INTO admin (Username, Password, role) VALUES ('$kd_guru', '1234', 'guru')");
     if ($insert) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"

@@ -21,7 +21,7 @@ if(isset($_POST['tambah'])){
     $id_kelas = $_POST['id_kelas'];
 
     $insert = mysqli_query($koneksi, "UPDATE siswa SET id_user='$id_user', nm_siswa='$nm_siswa', jenkel='$jenkel', hp='$hp', id_kelas='$id_kelas' WHERE nis='$nis' ");
-    $insertuser = mysqli_query($koneksi, "INSERT INTO users (username, password, role) VALUES ('$nis', '1234', 'siswa')");
+    $insertuser = mysqli_query($koneksi, "INSERT INTO admin (Username, Password, role) VALUES ('$nis', '1234', 'siswa')");
     if($insert) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"

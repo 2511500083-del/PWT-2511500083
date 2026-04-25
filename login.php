@@ -75,6 +75,25 @@
 
         if(empty($Username) || empty($Password))  {
             echo "Data Tidak Boleh kosong";
+        if($Username == true) {
+          $userquery = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM admin WHERE Username = '$Username' "));
+          //var_dump($userquery);die;
+          if($userquery) {
+            if($Password == $userquery['Password'])
+              $_SESSION['level'] = $userquery['role'];
+              $_SESSION['Username'] = $userquery['Username'];
+              if($userquery['role'] == 'admin') {
+                header("location:index.php");
+              }else if($userquery['role'] == 'guru' || $userquery['role'] == 'siswa') {
+                if($userquery['Password'] == '1234'){
+                  header("Location: index.php?page=ganti_password");
+                }else {
+                  header("location: index.php");
+                }
+              }
+
+          }
+        }
         } else {
             $userquery = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM 
               admin WHERE Username ='$Username' AND Password = '$Password' "));

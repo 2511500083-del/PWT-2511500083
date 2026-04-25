@@ -22,6 +22,7 @@ if(isset($_POST['tambah'])){
     $alamat =$_POST['alamat'];
 
     $insert = mysqli_query($koneksi, "UPDATE guru SET nm_guru='$nm_guru' WHERE kd_guru='$kd_guru' ");
+    $insertuser = mysqli_query($koneksi, "INSERT INTO admin (username, password, role) VALUES ('$kd_guru', '1234', 'siswa')");
     if($insert) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"
