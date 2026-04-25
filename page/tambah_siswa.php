@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Data Siswa</h1>
+            <h1 class="m-0 text-dark">Data Siswa </h1>
         </div>
     </div>
   </div>
@@ -28,6 +28,7 @@ if(isset($_POST['tambah'])){
     $id_kelas = $_POST['id_kelas'];
 
     $insert = mysqli_query($koneksi,"INSERT INTO siswa value ('$nis','$id_user','$nm_siswa','$jenkel','$hp','$id_kelas')");
+    $insertuser = mysqli_query($koneksi, "INSERT INTO users (username, password, role) VALUES ('$nis', '1234', 'siswa')");
     if($insert) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"
@@ -72,11 +73,18 @@ if(isset($_POST['tambah'])){
                             </div>
                             <div class="form-group">
                                 <Label for="id_kelas">ID Kelas</label>
-                                <input type="text" name="id_kelas" id="id_kelas" placeholder="ID Kelas" class="form-control">
-                            </div>
-                            <div class="card-footer">
+                                <select class="form-control" name="id_kelas" required>
+                                    <option value="" disabled selected>--Pilih Kelas--</option>
+                                    <?php
+                                    $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
+                                    while ($returnkelas = mysqli_fetch_array($getkelas)) {
+                                    ?>
+                                        <option value="<?= $returnkelas['nm_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="card-footer">
                                 <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
-                            </div>
+                                </div>
                         </form>
                     </div>
                 </div>

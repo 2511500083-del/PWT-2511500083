@@ -21,6 +21,7 @@ if(isset($_POST['tambah'])){
     $id_kelas = $_POST['id_kelas'];
 
     $insert = mysqli_query($koneksi, "UPDATE siswa SET id_user='$id_user', nm_siswa='$nm_siswa', jenkel='$jenkel', hp='$hp', id_kelas='$id_kelas' WHERE nis='$nis' ");
+    $insertuser = mysqli_query($koneksi, "INSERT INTO users (username, password, role) VALUES ('$nis', '1234', 'siswa')");
     if($insert) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"
@@ -66,8 +67,15 @@ if(isset($_POST['tambah'])){
                             </div>
                             <div class="form-group">
                                 <Label for="id_kelas">ID Kelas</label>
-                                <input type="text" name="id_kelas" value="<?= $edit['id_kelas']; ?>" id="id_kelas" placeholder="ID Kelas" class="form-control">
-                            </div>
+                                <select class="form-control" name="id_kelas" required>
+                                    <option value="" disabled selected>--Pilih Kelas--</option>
+                                    <?php
+                                    $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
+                                    while ($returnkelas = mysqli_fetch_array($getkelas)) {
+                                    ?>
+                                        <option value="<?= $returnkelas['nm_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
+                                    <?php } ?>
+                                </select>
                             <div class="card-footer">
                                 <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
                             </div>
