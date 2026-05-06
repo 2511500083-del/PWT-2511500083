@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 10, 2026 at 04:38 AM
--- Server version: 8.4.3
--- PHP Version: 8.3.30
+-- Generation Time: May 06, 2026 at 07:18 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,17 +29,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `Id_admin` int NOT NULL,
-  `Nama_lengkap` varchar(50) NOT NULL,
-  `Username` varchar(255) NOT NULL,
-  `Password` varchar(50) NOT NULL
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `role` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`Id_admin`, `Nama_lengkap`, `Username`, `Password`) VALUES
-(2, 'Salsabilla Agustin', 'admin', '12345');
+INSERT INTO `admin` (`Id_admin`, `username`, `password`, `role`) VALUES
+(1, 'Admin', '12345', ''),
+(2, 'admin', '12345', 'admin'),
+(3, 'N-335687', '1234', 'siswa'),
+(4, 'N-335688', '1234', 'siswa'),
+(5, 'G-005', '1234', 'guru'),
+(6, 'G-006', '090909', 'guru');
 
 -- --------------------------------------------------------
 
@@ -62,8 +67,8 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`kd_guru`, `id_user`, `nm_guru`, `jenkel`, `pend_terakhir`, `hp`, `alamat`) VALUES
-('G-003', '3', 'Irsyaaaaaaaaaaaaaa', 'P', 'SMK', '08236268863', 'KUNDI'),
-('G-004', '3', 'salsa', 'P', 'SMK', '08236268863', 'AIR LIMAU');
+('G-005', '3', 'Fika Haliza', 'P', 'MAN', '08546738229', 'Lampung'),
+('G-006', '2', 'Irsya', 'P', 'SMK', '08236268863', 'Kundi');
 
 -- --------------------------------------------------------
 
@@ -81,9 +86,11 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nm_kelas`) VALUES
-('K-001', 'kikiiiiw'),
-('K-002', 'kiku'),
-('K-003', 'kiki');
+('K-001', 'TJKT-1'),
+('K-002', 'TJKT-2'),
+('K-003', 'DKV-1'),
+('K-004', 'DKV-3'),
+('K-005', 'gsejrdysted');
 
 -- --------------------------------------------------------
 
@@ -117,7 +124,7 @@ CREATE TABLE `siswa` (
   `nm_siswa` varchar(50) NOT NULL,
   `jenkel` varchar(10) NOT NULL,
   `hp` varchar(13) NOT NULL,
-  `id_kelas` int NOT NULL
+  `id_kelas` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -125,8 +132,9 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`nis`, `id_user`, `nm_siswa`, `jenkel`, `hp`, `id_kelas`) VALUES
-('N-335678', 1, 'Irsya Eva Safitri', 'laki laki', '08236268863', 1),
-('N-335679', 5, 'salsabilla', 'Perempuan', '08546738229', 2);
+('N-335686', 2, 'Ijan', 'laki laki', '08236268863', 'DKV-1'),
+('N-335687', 1, 'Dedi', 'laki laki', '085841954944', 'DKV-1'),
+('N-335688', 3, 'Irsya Eva Safitri', 'Perempuan', '08236268863', 'DKV-1');
 
 -- --------------------------------------------------------
 
@@ -140,6 +148,24 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` enum('admin','guru','siswa') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `username`, `password`, `role`) VALUES
+(3, 'guru', '1234', 'guru'),
+(4, 'siswa', '1234', 'siswa'),
+(5, 'N-335678', '1234', 'siswa'),
+(6, 'N-335682', '1234', 'siswa'),
+(7, 'N-335678', '1234', 'siswa'),
+(8, 'N-335678', '1234', 'siswa'),
+(9, 'N-335682', '1234', 'siswa'),
+(10, 'N-335683', '1234', 'siswa'),
+(11, 'N-335684', '1234', 'siswa'),
+(12, 'N-335685', '1234', 'siswa'),
+(13, 'N-335684', '1234', 'siswa'),
+(14, 'N-335686', '1234', 'siswa');
 
 --
 -- Indexes for dumped tables
@@ -189,13 +215,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `Id_admin` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_admin` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
