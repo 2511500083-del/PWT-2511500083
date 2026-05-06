@@ -83,7 +83,7 @@
               $_SESSION['level'] = $userquery['role'];
               $_SESSION['Username'] = $userquery['Username'];
               if($userquery['role'] == 'admin') {
-                header("location:index.php");
+                header("location: index.php");
               }else if($userquery['role'] == 'guru' || $userquery['role'] == 'siswa') {
                 if($userquery['Password'] == '1234'){
                   header("Location: index.php?page=ganti_password");
